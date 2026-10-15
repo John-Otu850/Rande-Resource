@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Grande Resources | Mining & Environmental Services</title>
+    
+    <style>
+        /* 1. BASIC SETUP */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif; /* Changed to Montserrat */
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+
+                /* 2. HEADER & NAVIGATION */
+        header {
+            background-color: rgba(10, 25, 47, 0.95); 
+            color: white;
+            padding: 1rem 3%; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed; 
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+
+        .logo img {
+            height: 60px; 
+            width: auto;
+            filter: brightness(1.5) saturate(1.2);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px; 
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem; 
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #fbbf24; 
+        }
+
+        .header-btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+        
+                /* 3. HERO SECTION WITH VIDEO */
+        #hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; 
+            color: white;
+            overflow: hidden;
+            padding: 0 10%; 
+        }
+
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .bg-video.active {
+            opacity: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 25, 47, 0.85); 
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 1;
+        }
+
+        /* Small yellow subtitle */
+        .slide-subtitle {
+            color: #fbbf24; 
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        /* Huge, bold main heading */
+        #hero h1 {
+            font-size: 4.0rem !important; /* Much larger now */
+            line-height: 1.05;  /* Tighter spacing between lines */
+            margin-bottom: 25px;
+            font-weight: 800;
+            letter-spacing: -3px;
+        }
+
+        .highlight {
+            color: #fbbf24; 
+        }
+
+        /* Readable paragraph text */
+        .slide-text {
+            font-size: 1.2rem; 
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: #e2e8f0;
+            max-width: 600px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        /* Solid Yellow Button */
+        .btn-primary {
+            background-color: #fbbf24; /* Yellow */
+            color: white; /* White text */
+            border: 2px solid #fbbf24;
+        }
+
+        .btn-primary:hover {
+            background-color: #d97706;
+            border-color: #d97706;
+        }
+
+        /* Transparent Button with Border */
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: white;
+            color: #0f172a;
+        }
+        /* Darker navy overlay to match the screenshot */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 25, 47, 0.85); 
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: relative; /* This is crucial for the slides */
+            max-width: 800px;
+            z-index: 1;
+            width: 100%;
+            min-height: 450px; /* This stops the blank space/jumping */
+        }
+
+        /* Hide all slides by default */
+        .hero-slide {
+            display: none; 
+            width: 100%;
+        }
+
+        /* Show only the active slide with a fade effect */
+        .hero-slide.active {
+            display: block; 
+            width: 100%;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* The fade animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+
+
+        .slide-subtitle {
+            color: #fbbf24; /* Yellow/Gold color */
+            font-size: 0.9rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        #hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .highlight {
+            color: #fbbf24; /* Yellow/Gold color for highlighted words */
+        }
+
+        .slide-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #e2e8f0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        /* Solid Yellow Button */
+        .btn-primary {
+            background-color: #fbbf24;
+            color: #0f172a;
+        }
+
+        .btn-primary:hover {
+            background-color: #f59e0b;
+        }
+
+        /* Transparent Button with Border */
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: white;
+            color: #0f172a;
+        }
+
+        /* The Background Video */
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        /* Dark overlay so text is readable over the video */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.7); /* Dark blue tint */
+            z-index: -1;
+        }
+
+        .hero-content {
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        #hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        #hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Solid Yellow Button */
+        .btn-primary {
+            background-color: #fbbf24 !important; 
+            color: white !important; 
+        }
+
+        .btn-primary:hover {
+            background-color: #d97706 !important;
+        }
+
+        /* Transparent Button with Border */
+        .btn-secondary {
+            background-color: transparent !important;
+            color: white !important;
+            border: 2px solid white !important;
+        }
+
+        .btn-secondary:hover {
+            background-color: white !important;
+            color: #0f172a !important;
+        }
+
+        /* 4. SERVICES SECTION */
+        #services {
+            padding: 80px 5%;
+            text-align: center;
+            background-color: #f8fafc;
+        }
+
+        #services h2 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #0f172a;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            color: #0f172a;
+            margin-bottom: 15px;
+            font-size: 1.25rem;
+        }
+
+        /* 5. ABOUT SECTION */
+        #about {
+            padding: 80px 5%;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #about h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #0f172a;
+        }
+
+        /* 6. CONTACT SECTION */
+        #contact {
+            padding: 80px 5%;
+            background-color: #f8fafc;
+            text-align: center;
+        }
+
+        #contact h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #0f172a;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        form input, form textarea {
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 5px;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        form input:focus, form textarea:focus {
+            outline: none;
+            border-color: #38bdf8;
+        }
+
+        /* 7. FOOTER */
+        footer {
+            background-color: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+                /* Products and Services Section */
+        #products-services {
+            padding: 80px 10%;
+            background-color: white;
+            text-align: left;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            color: #003366; 
+            margin-bottom: 50px;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        /* Renamed to .product-card to avoid conflicts! */
+        .product-card {
+            position: relative;
+            flex: 1 1 250px; 
+            height: 450px;
+            overflow: hidden; 
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        .card-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease; 
+        }
+
+        .product-card:hover .card-bg {
+            transform: scale(1.1); 
+        }
+
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 51, 102, 0.95); 
+            color: white;
+            padding: 40px 30px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transform: translateY(100%); 
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .product-card:hover .card-overlay {
+            transform: translateY(0);
+        }
+
+        .card-overlay h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .card-overlay p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .explore-link {
+            color: #fbbf24; 
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: auto;
+        }
+
+                /* Hybrid Who We Are Section */
+        .hybrid-about-section {
+            background-color: #f4f6f9; /* Light gray/blue background */
+            padding: 100px 10%;
+        }
+
+        .hybrid-container {
+            display: flex;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        /* Left Column: Image */
+        .hybrid-image-col {
+            flex: 1;
+            position: relative;
+        }
+
+        .hybrid-image-col img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .est-badge {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background-color: #003366;
+            color: #fbbf24;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            text-align: center;
+            border: 2px solid #fbbf24;
+            font-size: 1.1rem;
+            line-height: 1.2;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Right Column: Content */
+        .hybrid-content-col {
+            flex: 1.2; /* Give text slightly more room */
+        }
+
+        .hybrid-content-col h2 {
+            font-size: 3.5rem;
+            color: #003366;
+            font-weight: 300; /* Thin, elegant font */
+            margin-bottom: 20px;
+            margin-top: 0;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        /* Timeline Styles */
+        .timeline-container {
+            position: relative;
+            padding-left: 10px;
+        }
+
+        /* The vertical line connecting the icons */
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 34px; /* Centers the line behind the 70px icons */
+            top: 10px;
+            bottom: 10px;
+            width: 1px;
+            background-color: #cbd5e1; /* Light gray line */
+            z-index: 1;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-icon {
+            width: 70px;
+            height: 70px;
+            border: 1px solid #003366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            flex-shrink: 0;
+            margin-right: 25px;
+        }
+
+        .timeline-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: #003366;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.2rem;
+            color: #003366;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .timeline-content p {
+            font-size: 1rem;
+            color: #475569;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Responsive: Stack on smaller screens */
+        @media (max-width: 900px) {
+            .hybrid-container {
+                flex-direction: column;
+            }
+            .timeline-container::before {
+                left: 34px;
+            }
+        }
+
+                /* Track Record Section */
+        .track-record-section {
+            background-color: #0a192f; /* Dark navy blue */
+            padding: 40px 10%;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .track-record-header h2 {
+            font-size: 3rem;
+            color: white;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .track-record-header p {
+            font-size: 1.1rem;
+            color: #94a3b8; /* Light blue-gray */
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            line-height: 1.6;
+        }
+
+        .stats-marquee {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: slide-stats 20s linear infinite; /* 20s is the speed */
+        }
+
+        .stat-item {
+            flex: 0 0 300px; /* Fixed width for each block */
+            text-align: center;
+            padding: 10px;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 10px auto;
+        }
+
+        .stat-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: #fbbf24; /* Yellow icon */
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #fbbf24; /* Yellow number */
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #94a3b8; /* Light blue-gray label */
+            font-weight: 500;
+        }
+
+                /* --- MOBILE RESPONSIVE NAVIGATION --- */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+            margin-left: 20px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 1000px) {
+            .header-btn {
+                display: none; 
+            }
+
+            .hamburger {
+                display: flex; 
+            }
+
+            nav ul {
+                position: fixed;
+                top:0;
+                right: -100%; 
+                width: 70%;
+                height: 100vh;
+                background-color: #0a192f; 
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                transition: right 0.4s ease;
+                z-index: 1000;
+                padding-top: 100px;
+                margin: 0;
+                overflow-y: auto; /* <--- THIS IS THE MAGIC LINE THAT FIXES THE SCROLLING! */
+            }
+
+            nav ul li {
+                margin: 20px 0;
+            }
+
+            nav ul li a {
+                font-size: 1.5rem; 
+            }
+
+            nav ul.active {
+                right: 0; 
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+        }
+
+        @keyframes slide-stats {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Moves exactly half the width */
+        }
+
+                /* Trusted By Section */
+        .trusted-section {
+            padding: 60px 10%;
+            background-color: white;
+            text-align: center;
+        }
+
+        .trusted-title {
+            color: #003366; /* Dark blue text */
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            font-weight: bold;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
+
+        .logo-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 80px; /* Large space between logos */
+            flex-wrap: wrap;
+        }
+
+        .logo-item img {
+            max-height: 85px; /* Keeps logos uniform height */
+            width: auto;
+            filter: grayscale(100%); /* Makes them gray like the screenshot */
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        /* Optional: Make them colorful when you hover over them */
+        .logo-item img:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+                /* Ready to Partner Section */
+        .partner-cta-section {
+            /* Using a placeholder image of an engineer/worker */
+            background-image: linear-gradient(rgba(10, 25, 47, 0.85), rgba(10, 25, 47, 0.85)), url('images/partner.avif');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 10%;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-subtitle {
+            color: #fbbf24; /* Yellow */
+            font-size: 0.9rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .partner-cta-section h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .partner-cta-section h2 .highlight {
+            color: #fbbf24; /* Yellow for "with Us?" */
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn-cta-primary {
+            background-color: #1e40af; /* Blue button */
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-cta-primary:hover {
+            background-color: #1e3a8a;
+        }
+
+        .btn-cta-secondary {
+            background-color: transparent;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            border: 2px solid white;
+            transition: all 0.3s;
+        }
+
+        .btn-cta-secondary:hover {
+            background-color: white;
+            color: #0a192f;
+        }
+
+        /* Stay Informed Section */
+        .newsletter-section {
+            background-color: #050f1e; /* Very dark blue */
+            padding: 60px 10%;
+            color: white;
+        }
+
+        .newsletter-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .newsletter-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .newsletter-text h4 {
+            color: #fbbf24; /* Yellow */
+            font-size: 1rem;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .newsletter-text p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .newsletter-form {
+            flex: 1;
+            display: flex;
+            gap: 10px;
+            min-width: 300px;
+            justify-content: flex-end;
+        }
+
+        .newsletter-form input {
+            padding: 15px 20px;
+            border-radius: 5px;
+            border: 1px solid #1e293b;
+            background-color: #0f172a;
+            color: white;
+            width: 300px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form input::placeholder {
+            color: #64748b;
+        }
+
+        .newsletter-form button {
+            background-color: #fbbf24; /* Yellow button */
+            color: #0f172a;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background-color: #f59e0b;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .newsletter-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .newsletter-form {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .newsletter-form input {
+                width: 100%;
+            }
+        }
+
+                /* Footer Section */
+        .site-footer {
+            background-color: #050f1e; /* Very dark navy */
+            color: #94a3b8; /* Light gray text */
+            padding: 60px 10% 20px 10%;
+            border-top: 4px solid #fbbf24; /* Yellow top border */
+            font-size: 0.95rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Top Row */
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-logo {
+            height: 35px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(1.5); /* Brighten logo for dark background */
+        }
+
+        .footer-tagline {
+            color: #fbbf24; /* Yellow */
+            font-style: italic;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        .back-to-top {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .back-to-top:hover {
+            color: white;
+        }
+
+        /* Middle Grid */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-col h4 {
+            color: #fbbf24; /* Yellow headings */
+            font-size: 1rem;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .footer-col p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+        }
+
+        /* Contact List with Icons */
+        .contact-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-list svg {
+            width: 18px;
+            height: 18px;
+            stroke: #fbbf24; /* Yellow icons */
+        }
+
+        /* Social Icons */
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: #94a3b8;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: white;
+        }
+
+        .social-icons svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Bottom Row */
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid #1e293b;
+            font-size: 0.85rem;
+        }
+
+        .legal-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .legal-links a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+
+        .legal-links a:hover {
+            color: white;
+        }
+
+        /* Responsive Footer */
+        @media (max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .footer-top {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+
+                /* --- MOBILE RESPONSIVE NAVIGATION --- */
+        
+        /* Hide hamburger by default on desktop */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* When screen is smaller than 1000px (Tablets and Phones) */
+        @media (max-width: 1000px) {
+            .header-btn {
+                display: none; /* Hide the "Get In Touch" button on mobile to save space */
+            }
+
+            .hamburger {
+                display: flex; /* Show the hamburger icon */
+            }
+
+            nav ul {
+                position: absolute;
+                top: 0;
+                right: -100%; /* Hide menu off-screen to the right */
+                width: 70%;
+                height: 100vh;
+                background-color: #0a192f; /* Dark blue background */
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.4s ease;
+                z-index: 1000;
+                padding-top: 60px;
+            }
+
+            nav ul li {
+                margin: 20px 0;
+            }
+
+            nav ul li a {
+                font-size: 1.5rem; /* Make links bigger for tapping */
+            }
+
+            /* This class is added by JavaScript to show the menu */
+            nav ul.active {
+                right: 0; /* Slide menu into view */
+            }
+
+            /* Hamburger Animation when active */
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+        }
+
+                /* --- MOBILE RESPONSIVE NAVIGATION --- */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+            margin-left: 20px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 1000px) {
+            .header-btn {
+                display: none; 
+            }
+
+            .hamburger {
+                display: flex; 
+            }
+
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%; 
+                width: 70%;
+                height: 100vh;
+                background-color: #0a192f; 
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.4s ease;
+                z-index: 1000;
+                padding-top: 130px;
+                margin: 0;
+            }
+
+            nav ul li {
+                margin: 20px 0;
+            }
+
+            nav ul li a {
+                font-size: 1.5rem; 
+            }
+
+            nav ul.active {
+                right: 0; 
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+        }
+
+                        /* --- MOBILE HERO SECTION FIXES --- */
+        @media (max-width: 768px) {
+            #hero {
+                /* Change height to min-height so it doesn't cut off buttons at the bottom */
+                height: auto; 
+                min-height: 100vh;
+                padding-top: 130px; /* Increased padding to stop header from covering text */
+                padding-bottom: 50px;
+                align-items: flex-start; 
+            }
+
+            .hero-content {
+                padding: 0 20px;
+                width: 100%;
+            }
+
+            .slide-subtitle {
+                font-size: 0.8rem;
+                margin-top: 10px; /* Ensures subtitle is visible */
+            }
+
+            #hero h1 {
+                font-size: 2rem !important; /* Smaller heading */
+                line-height: 1.1;
+                margin-bottom: 15px;
+            }
+
+            .slide-text {
+                font-size: 0.9rem; /* Smaller paragraph text */
+                line-height: 1.5;
+                margin-bottom: 30px;
+            }
+
+            .button-group {
+                flex-direction: column; /* Stacks buttons neatly on mobile */
+                width: 100%;
+                gap: 15px;
+            }
+
+            .btn {
+                width: 100%; /* Full width buttons are easier to tap on phones */
+                text-align: center;
+                padding: 15px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+        <!-- 1. HEADER & NAVIGATION -->
+    <header>
+        <div class="logo">
+            <!-- Logo image here -->
+            <img src="images/Rande_Resource_logo-removebg-preview.png" alt="Grande Resources Logo">
+        </div>
+        <nav>
+            <ul id="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#industries">Industries</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#training">Training</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#careers">Careers</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+                <!-- Hamburger Menu Button -->
+        <div class="hamburger" id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <a href="#contact" class="btn btn-primary header-btn">Get In Touch</a>
+    </header>
+
+        <!-- 2. HERO SECTION WITH VIDEO -->
+    <section id="hero">
+        <div class="video-container">
+            <video autoplay muted loop playsinline class="bg-video active" id="videoA" poster="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80">
+                <source src="Videos/video 1.mp4" type="video/mp4">
+            </video>
+            <video muted loop playsinline class="bg-video" id="videoB">
+                <source src="Videos/video 2.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <!-- Slide 1 -->
+            <div class="hero-slide active">
+                <p class="slide-subtitle">MINING ENGINEERING & ENVIRONMENTAL SERVICES</p>
+                <h1>Engineering <br>Sustainable <span class="highlight">Prosperity</span></h1>
+                <p class="slide-text">Grande Resources is an independent Mining Engineering, Technology and Environmental Service provider with presence in Ghana and Canada. We deliver innovative solutions that balance industrial progress with environmental stewardship.</p>
+                <div class="button-group">
+                    <a href="#services" class="btn btn-primary">Explore Our Services &rarr;</a>
+                    <a href="#about" class="btn btn-secondary">About Grande Resources</a>
+                </div>
+            </div>
+                <!-- Slide 2 -->
+                 <div class="hero-slide">
+                <p class="slide-subtitle">EXPERT SOLUTIONS FOR MODERN MINING</p>
+                <h1>Expert Mining & <span class="highlight">Environmental</span> Solutions</h1>
+                <p class="slide-text">From blast optimisation to mine planning and environmental compliance, our team brings decades of combined experience to every project. We engineer outcomes that protect both your bottom line and the planet.</p>
+                <div class="button-group">
+                    <a href="#services" class="btn btn-primary">Explore Our Services &rarr;</a>
+                    <a href="#projects" class="btn btn-secondary">View Our Projects</a>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="hero-slide">
+                <p class="slide-subtitle">GLOBAL PRESENCE & LOCAL EXPERTISE</p>
+                <h1>Trusted Across Ghana & <span class="highlight">Canada</span></h1>
+                <p class="slide-text">With operational hubs in Accra and across Canada, Grande Resources bridges continents to deliver world-class engineering and environmental services tailored to local regulatory and operational realities.</p>
+                <div class="button-group">
+                    <a href="#services" class="btn btn-primary">Explore Our Services &rarr;</a>
+                    <a href="#about" class="btn btn-secondary">About Grande Resources</a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+        
+        <!-- PRODUCTS AND SERVICES SECTION -->
+    <section id="products-services">
+        <h2 class="section-title">Products and services</h2>
+        
+        <div class="card-container">
+            <!-- Card 1 -->
+            <div class="product-card">
+                <img src="images/blasting.jpg" class="card-bg" alt="Blasting">
+                <div class="card-overlay">
+                    <h3>Blasting Solutions</h3>
+                    <p>Comprehensive blasting services including impact prediction modelling, monitoring, and blast optimisation for mining and quarry operations.</p>
+                    <a href="#" class="explore-link">learn more &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="product-card">
+                <img src="images/environmental service.jpeg" class="card-bg" alt="Digital">
+                <div class="card-overlay">
+                    <h3>Environmental Services</h3>
+                    <p>Full-spectrum environmental impact assessments, baseline studies, monitoring, and analysis — from air quality to water and soil.</p>
+                    <a href="#" class="explore-link">learn more &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="product-card">
+                <img src="images/mine planning.jpg" class="card-bg" alt="Chemicals">
+                <div class="card-overlay">
+                    <h3>Mine Planning & Technical Solutions</h3>
+                    <p>Expert mine planning, resource estimation, geotechnical studies, and technical report writing to international standards.</p>
+                    <a href="#" class="explore-link">learn more &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80" class="card-bg" alt="Reports">
+                <div class="card-overlay">
+                    <h3>Technical Report Writing</h3>
+                    <p>Professional reports compliant with JORC, NI 43-101, and S-K 1300 standards for regulatory submissions and feasibility studies.</p>
+                    <a href="#" class="explore-link">learn more &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+        <!-- HYBRID WHO WE ARE SECTION -->
+    <section id="who-we-are" class="hybrid-about-section">
+        <div class="hybrid-container">
+            <!-- Left Side: Image & Badge -->
+            <div class="hybrid-image-col">
+                <!-- Replace this URL with your actual image file if you have one -->
+                <img src="images/mining site_.webp" alt="Mining Site">
+                <div class="est-badge">EST.<br>2010</div>
+            </div>
+
+            <!-- Right Side: Content & Timeline -->
+            <div class="hybrid-content-col">
+                <h2>Who We Are</h2>
+                <p class="intro-text">Grande Resources is a fast-growing company that champions environmental, sanitation, and water supply challenges encountered in our communities. We focus on providing innovative and modern environmental and engineering solutions to our cherished Clients.</p>
+
+                <div class="timeline-container">
+                    <!-- Timeline Item 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l8-4 8 4v14M8 21v-9a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v9"/></svg>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>Our Foundation</h4>
+                            <p>Founded in 2010, Grande Resources began with a vision to bridge the gap between industrial mining progress and environmental stewardship in Ghana.</p>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>Global Expansion</h4>
+                            <p>Today, our operations span across Ghana and Canada, delivering world-class engineering solutions tailored to local regulatory realities.</p>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 3 -->
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>Future Vision</h4>
+                            <p>As we enable sustainable operations, we continue to expand our footprint, ensuring quality, excellence, and client satisfaction remain our ultimate focus.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- TRACK RECORD SECTION -->
+    <section id="track-record" class="track-record-section">
+        <div class="track-record-header">
+            <h2>Our Track Record</h2>
+            <p>Delivering excellence across Ghana and Canada with a growing portfolio of successful projects.</p>
+        </div>
+        
+        <div class="stats-marquee">
+            <div class="marquee-track">
+                <!-- Original 4 Stats -->
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                    </div>
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Years of Excellence</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    </div>
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/></svg>
+                    </div>
+                    <div class="stat-number">6+</div>
+                    <div class="stat-label">Major Clients</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </div>
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Countries</div>
+                </div>
+
+                <!-- Duplicated 4 Stats for seamless loop -->
+                <div class="stat-item">
+                    <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+                    <div class="stat-number">15+</div><div class="stat-label">Years of Excellence</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+                    <div class="stat-number">50+</div><div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/></svg></div>
+                    <div class="stat-number">6+</div><div class="stat-label">Major Clients</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+                    <div class="stat-number">2</div><div class="stat-label">Countries</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- TRUSTED BY INDUSTRY LEADERS -->
+    <section class="trusted-section">
+        <h3 class="trusted-title">TRUSTED BY INDUSTRY LEADERS</h3>
+        
+        <div class="logo-grid">
+            <!-- I am using placeholder logos for now. You can replace the src="" with your own image files later. -->
+            <div class="logo-item">
+                <img src="images/AngloGold.png" alt="AngloGold Ashanti">
+            </div>
+            <div class="logo-item">
+                <img src="images/oxfam.webp" alt="Oxfam">
+            </div>
+            
+        </div>
+    </section>
+
+        <!-- READY TO PARTNER SECTION -->
+    <section class="partner-cta-section">
+        <div class="cta-content">
+            <p class="cta-subtitle">LET'S BUILD TOGETHER</p>
+            <h2>Ready to Partner <span class="highlight">with Us?</span></h2>
+            <p class="cta-text">Whether you need expert mining engineering, environmental assessments, or technical training — Grande Resources has the expertise and experience to deliver results.</p>
+            
+            <div class="cta-buttons">
+                <a href="#contact" class="btn-cta-primary">Get In Touch</a>
+                <a href="#projects" class="btn-cta-secondary">View Our Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- STAY INFORMED (Newsletter) SECTION -->
+    <section class="newsletter-section">
+        <div class="newsletter-container">
+            <div class="newsletter-text">
+                <h4>STAY INFORMED</h4>
+                <p>Subscribe for updates on mining innovation, environmental stewardship, and Grande Resources projects.</p>
+            </div>
+            <div class="newsletter-form">
+                <input type="email" placeholder="Your email address">
+                <button type="button">Subscribe</button>
+            </div>
+        </div>
+    </section>
+
+        <!-- FOOTER SECTION -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <!-- Top Row: Logo, Tagline, Back to Top -->
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="images/Rande_Resource_logo-removebg-preview.png" alt="Grande Resources Logo" class="footer-logo">
+                    <p class="footer-tagline">"Engineering Sustainable Prosperity"</p>
+                </div>
+                <a href="#top" class="back-to-top">↑ Back to top</a>
+            </div>
+
+            <!-- Middle Row: 4 Columns -->
+            <div class="footer-grid">
+                <!-- Column 1: About -->
+                <div class="footer-col">
+                    <h4>ABOUT</h4>
+                    <p>Grande Resources is an independent Mining Engineering, Technology and Environmental Service provider with presence in Ghana and Canada.</p>
+                    <div class="social-icons">
+                        <!-- LinkedIn Icon -->
+                        <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                        <!-- X (Twitter) Icon -->
+                        <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col">
+                    <h4>QUICK LINKS</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Services -->
+                <div class="footer-col">
+                    <h4>SERVICES</h4>
+                    <ul>
+                        <li><a href="#">Blasting Solutions</a></li>
+                        <li><a href="#">Mine Planning</a></li>
+                        <li><a href="#">Environmental Services</a></li>
+                        <li><a href="#">Equipment Maintenance</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact -->
+                <div class="footer-col">
+                    <h4>CONTACT</h4>
+                    <ul class="contact-list">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Ghana & Canada
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            director@granderesource.com
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Row: Copyright & Legal -->
+            <div class="footer-bottom">
+                <p>&copy; 2026 Grande Resources. All rights reserved.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        const videos = ['Videos/video 1.mp4', 'Videos/video 2.mp4', 'Videos/video 3.mp4', 'Videos/video 4.mp4'];
+        let currentVideoIndex = 0;
+        let activeVideoId = 'videoA';
+
+        function switchVideo() {
+            const activeVideo = document.getElementById(activeVideoId);
+            const inactiveVideoId = activeVideoId === 'videoA' ? 'videoB' : 'videoA';
+            const inactiveVideo = document.getElementById(inactiveVideoId);
+
+            // Get the next video in the list
+            currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+            inactiveVideo.src = videos[currentVideoIndex];
+            inactiveVideo.load();
+            
+            // Wait for the new video to be ready, then fade it in
+            inactiveVideo.addEventListener('canplay', function onCanPlay() {
+                inactiveVideo.removeEventListener('canplay', onCanPlay);
+                inactiveVideo.play();
+                
+                // Do the smooth fade
+                inactiveVideo.classList.add('active');
+                activeVideo.classList.remove('active');
+                
+                // Swap which video is active for the next turn
+                activeVideoId = inactiveVideoId;
+            }, { once: true });
+        }
+
+        // Change video every 8 seconds
+        setInterval(switchVideo, 8000); 
+    </script>
+
+    <script>
+        const slides = document.querySelectorAll('.hero-slide');
+        let currentSlide = 0;
+
+        function changeSlide() {
+            // Remove 'active' from the current slide
+            slides[currentSlide].classList.remove('active');
+            
+            // Move to the next slide
+            currentSlide = (currentSlide + 1) % slides.length;
+            
+            // Add 'active' to the new slide
+            slides[currentSlide].classList.add('active');
+        }
+
+        // Change slide every 6 seconds
+        setInterval(changeSlide, 6000);
+    </script>
+
+       
+
+        <script>
+        const hamburger = document.getElementById('hamburger-btn');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('#nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
