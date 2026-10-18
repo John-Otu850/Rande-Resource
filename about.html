@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Grande Resources</title>
+    <style>
+        /* =========================================
+           1. GLOBAL RESET & BASE STYLES
+           ========================================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #ffffff; color: #333; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* =========================================
+           2. HEADER & NAVIGATION
+           ========================================= */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background-color: #0a192f; position: sticky; top: 0; z-index: 1000; }
+        .logo img { height: 50px; }
+        nav ul { display: flex; gap: 25px; }
+        nav ul li a { color: white; font-weight: 500; font-size: 1rem; transition: color 0.3s; }
+        nav ul li a:hover, nav ul li a.active { color: #fbbf24; }
+        .header-btn { background-color: #fbbf24; color: #0a192f !important; padding: 10px 20px; border-radius: 5px; font-weight: bold; }
+        .header-btn:hover { background-color: #f59e0b; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
+        .hamburger span { width: 25px; height: 3px; background-color: white; border-radius: 2px; transition: all 0.3s ease; }
+
+        /* =========================================
+           3. WHO WE ARE SECTION
+           ========================================= */
+        .who-we-are {
+            padding: 80px 10%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            background-color: white;
+        }
+        .image-container {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .est-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #0a192f;
+            color: #fbbf24;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            border: 2px solid #fbbf24;
+        }
+        .est-badge span { display: block; font-size: 0.8rem; letter-spacing: 1px; }
+        .est-badge strong { display: block; font-size: 1.5rem; }
+        
+        .who-content h2 { font-size: 2.5rem; color: #0a192f; margin-bottom: 20px; }
+        .who-content p { color: #475569; margin-bottom: 20px; font-size: 1.05rem; }
+
+        /* =========================================
+           4. WHAT MAKES US UNIQUE SECTION
+           ========================================= */
+        .unique-section {
+            background-color: #f1f5f9; /* Light blue-grey */
+            padding: 80px 10%;
+            text-align: center;
+        }
+        .unique-section h2 { font-size: 2.5rem; color: #0a192f; margin-bottom: 15px; }
+        .unique-section > p { color: #475569; max-width: 700px; margin: 0 auto 50px auto; font-size: 1.1rem; }
+        
+        .unique-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .unique-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background-color: #fef3c7; /* Light yellow */
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+        }
+        .icon-box svg { width: 30px; height: 30px; stroke: #d97706; /* Darker yellow/orange for icon */ }
+        .unique-card h3 { color: #0a192f; font-size: 1.3rem; margin-bottom: 15px; }
+        .unique-card p { color: #475569; font-size: 0.95rem; }
+
+        /* =========================================
+           5. HEALTH FOR WEALTH SECTION
+           ========================================= */
+        .health-section {
+            padding: 80px 10%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        .health-content h2 { font-size: 2.5rem; color: #0a192f; margin-bottom: 20px; }
+        .health-content p { color: #475569; margin-bottom: 20px; font-size: 1.05rem; }
+        .highlight-text { color: #d97706; font-weight: bold; }
+        
+        .quote-box {
+            background-color: #fefce8; /* Very light yellow */
+            border-left: 5px solid #fbbf24;
+            padding: 30px;
+            margin-top: 30px;
+            border-radius: 0 10px 10px 0;
+            position: relative;
+        }
+        .quote-icon {
+            font-size: 4rem;
+            color: #fbbf24;
+            line-height: 1;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-family: serif;
+        }
+        .quote-box p {
+            color: #0a192f;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .health-cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .h-card {
+            background-color: #f1f5f9;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+        .h-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #fef3c7;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        .h-icon svg { width: 20px; height: 20px; stroke: #d97706; }
+        .h-card h4 { color: #0a192f; font-size: 1.1rem; margin-bottom: 10px; }
+        .h-card p { color: #475569; font-size: 0.9rem; }
+
+        /* =========================================
+           6. PROFESSIONAL TEAM SECTION
+           ========================================= */
+        .team-section {
+            padding: 80px 10%;
+            background-color: #fafafa; /* Very light grey/cream */
+            text-align: center;
+        }
+        .team-section h2 { font-size: 2.5rem; color: #0a192f; margin-bottom: 15px; }
+        .team-section > p { color: #475569; max-width: 800px; margin: 0 auto 50px auto; font-size: 1.1rem; }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+        .team-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #f1f5f9;
+        }
+        .avatar {
+            width: 80px;
+            height: 80px;
+            background-color: #1e3a8a; /* Dark Blue */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .avatar svg { width: 40px; height: 40px; stroke: white; }
+        .team-card h3 { color: #0a192f; font-size: 1.1rem; margin-bottom: 5px; }
+        .team-card .role { color: #1e3a8a; font-size: 0.9rem; font-weight: 500; margin-bottom: 15px; }
+        .qualification-badge {
+            background-color: #fef3c7;
+            color: #854d0e;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* =========================================
+           7. FOOTER SECTION
+           ========================================= */
+        .site-footer { background-color: #050f1e; color: #94a3b8; padding: 60px 10% 20px 10%; border-top: 4px solid #fbbf24; font-size: 0.95rem; }
+        .footer-container { max-width: 1200px; margin: 0 auto; }
+        .footer-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; padding-bottom: 30px; border-bottom: 1px solid #1e293b; }
+        .footer-brand { display: flex; flex-direction: column; gap: 15px; }
+        .footer-logo { height: 35px; width: auto; object-fit: contain; filter: brightness(1.5); }
+        .footer-tagline { color: #fbbf24; font-style: italic; font-size: 1.1rem; margin: 0; }
+        .back-to-top { color: #94a3b8; text-decoration: none; transition: color 0.3s; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 50px; }
+        .footer-col h4 { color: #fbbf24; font-size: 1rem; letter-spacing: 1px; margin-bottom: 20px; font-weight: bold; }
+        .footer-col p { line-height: 1.6; margin-bottom: 20px; }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: #94a3b8; text-decoration: none; transition: color 0.3s; }
+        .footer-col ul li a:hover { color: white; }
+        .contact-list li { display: flex; align-items: center; gap: 10px; }
+        .contact-list svg { width: 18px; height: 18px; stroke: #fbbf24; }
+        .social-icons { display: flex; gap: 15px; }
+        .social-icons a { color: #94a3b8; transition: color 0.3s; }
+        .social-icons a:hover { color: white; }
+        .social-icons svg { width: 24px; height: 24px; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid #1e293b; font-size: 0.85rem; }
+        .legal-links { display: flex; gap: 20px; }
+        .legal-links a { color: #94a3b8; text-decoration: none; }
+
+        /* =========================================
+           8. MOBILE RESPONSIVE
+           ========================================= */
+        @media (max-width: 900px) {
+            .header-btn { display: none; }
+            .hamburger { display: flex; }
+            nav ul { position: fixed; top: 0; right: -100%; width: 70%; height: 100vh; background-color: #0a192f; flex-direction: column; justify-content: flex-start; align-items: center; transition: right 0.4s ease; z-index: 1000; padding-top: 100px; margin: 0; overflow-y: auto; }
+            nav ul.active { right: 0; }
+            nav ul li { margin: 20px 0; }
+            nav ul li a { font-size: 1.5rem; }
+            .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.active span:nth-child(2) { opacity: 0; }
+            .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+            
+            .who-we-are { grid-template-columns: 1fr; padding: 60px 5%; }
+            .unique-grid { grid-template-columns: 1fr; }
+            .health-section { grid-template-columns: 1fr; padding: 60px 5%; }
+            .team-grid { grid-template-columns: 1fr 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 600px) {
+            .team-grid { grid-template-columns: 1fr; }
+            .health-cards-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            <img src="images/Rande_Resource_logo-removebg-preview.png" alt="Grande Resources Logo">
+        </div>
+        <nav>
+            <ul id="nav-links">
+             <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About Us</a></li>
+                <li><a href="industries.html">Industries</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="training.html">Training</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="hamburger" id="hamburger-btn">
+            <span></span><span></span><span></span>
+        </div>
+        <a href="contact.html" class="header-btn">Get In Touch</a>
+    </header>
+
+    <!-- WHO WE ARE SECTION -->
+    <section class="who-we-are">
+        <div class="image-container">
+            <!-- Mining pit image -->
+            <img src="images/mining site_.webp" alt="Mining Site">
+            <div class="est-badge">
+                <span>EST.</span>
+                <strong>2010</strong>
+            </div>
+        </div>
+        <div class="who-content">
+            <h2>Who We Are</h2>
+            <p>Grande Resources for several years have identified that human existence are based on dedicated lifestyles and transformational activities.</p>
+            <p>With the adverse effect of human activities and its impact on our environment, we are established to abreast ourselves with those challenges; thereby providing the best solution to environmental problems swallowing us.</p>
+            <p>We are a fast-growing company that champions environmental, sanitation, and water supply challenges encountered in our communities. The main focus of our operations is quality, excellence, and satisfaction of our Clients — the ultimate.</p>
+        </div>
+    </section>
+
+    <!-- WHAT MAKES US UNIQUE SECTION -->
+    <section class="unique-section">
+        <h2>What Makes Us Unique</h2>
+        <p>Our approach is built on three core pillars that distinguish Grande Resources from the competition.</p>
+        
+        <div class="unique-grid">
+            <!-- Card 1 -->
+            <div class="unique-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </div>
+                <h3>Selfless Commitment</h3>
+                <p>Selfless commitment to addressing indigenous issues with high professionalism — we place community needs at the heart of every engagement.</p>
+            </div>
+            <!-- Card 2 -->
+            <div class="unique-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                </div>
+                <h3>Professional Excellence</h3>
+                <p>Excellent blend of professional workforce for attainment of excellence — our multidisciplinary team delivers results across mining, environment, and engineering.</p>
+            </div>
+            <!-- Card 3 -->
+            <div class="unique-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                </div>
+                <h3>Remote Service Delivery</h3>
+                <p>Remote service with satisfaction and heartfelt deliverables — we bring world-class expertise to any location, ensuring quality outcomes wherever we operate.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HEALTH FOR WEALTH SECTION -->
+    <section class="health-section">
+        <div class="health-content">
+            <h2>Health for Wealth</h2>
+            <p>Grande Resources ensures to promote the health and positive livelihood of communities and people.</p>
+            <p>With our laid down system of approach to challenges, there is no doubt that we offer man's greatest desire: <span class="highlight-text">"Health for Wealth"</span>.</p>
+            <p>We believe that thriving communities are the foundation of sustainable development. Every project we undertake is guided by our commitment to improving lives while delivering technical excellence.</p>
+            
+            <div class="quote-box">
+                <div class="quote-icon">“</div>
+                <p>"With our laid down system of approach to challenges, there is no doubt that we offer man's greatest desire: Health for Wealth."</p>
+            </div>
+        </div>
+
+        <div class="health-cards-grid">
+            <div class="h-card">
+                <div class="h-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>
+                </div>
+                <h4>Environmental Stewardship</h4>
+                <p>Comprehensive environmental impact assessments, monitoring, and remediation services that protect ecosystems and communities.</p>
+            </div>
+            <div class="h-card">
+                <div class="h-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </div>
+                <h4>Community Health & Safety</h4>
+                <p>Programs that promote the health and positive livelihood of communities — because healthy communities build strong nations.</p>
+            </div>
+            <div class="h-card">
+                <div class="h-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <h4>Sustainable Solutions</h4>
+                <p>Systems and approaches that balance economic development with environmental protection for long-term prosperity.</p>
+            </div>
+            <div class="h-card">
+                <div class="h-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                </div>
+                <h4>Technical Expertise</h4>
+                <p>World-class mining engineering, geotechnical studies, and resource estimation delivered to international standards.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROFESSIONAL TEAM SECTION -->
+    <section class="team-section">
+        <h2>Our Professional Team</h2>
+        <p>Grande Resources is powered by a team of highly qualified professionals with expertise across mining, environment, engineering, and community development.</p>
+        
+        <div class="team-grid">
+            <!-- Team Member 1 -->
+            <div class="team-card">
+                <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                <h3>Principal Consultant</h3>
+                <p class="role">Mining Engineer & Environmental Geochemist</p>
+                <span class="qualification-badge">MSc, BSc, GMGhiE, MSME, MAusIMM</span>
+            </div>
+            <!-- Team Member 2 -->
+            <div class="team-card">
+                <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                <h3>Mineral Engineer & Industrial Process Analyst</h3>
+                <p class="role">Process Engineering Lead</p>
+                <span class="qualification-badge">PhD, MSc, BSc</span>
+            </div>
+            <!-- Team Member 3 -->
+            <div class="team-card">
+                <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                <h3>Geomatic Engineer & Environmental Engineer</h3>
+                <p class="role">Geomatics & Environmental Lead</p>
+                <span class="qualification-badge">MSc, BSc</span>
+            </div>
+            <!-- Team Member 4 -->
+            <div class="team-card">
+                <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                <h3>Community Based & Economical Professional</h3>
+                <p class="role">Community Relations & Economics Lead</p>
+                <span class="qualification-badge">MSc, BSc</span>
+            </div>
+            <!-- Team Member 5 -->
+            <div class="team-card">
+                <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                <h3>Environmental Scientist & Biodiversity Expert</h3>
+                <p class="role">Environmental Science Lead</p>
+                <span class="qualification-badge">BSc</span>
+            </div>
+            <!-- Team Member 6 -->
+            <div class="team-card">
+                <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                <h3>Environmental Law & Regulatory Expert</h3>
+                <p class="role">Legal & Regulatory Affairs Lead</p>
+                <span class="qualification-badge">BSc</span>
+            </div>
+            <!-- Team Member 7 -->
+            <div class="team-card">
+                <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                <h3>Civil, Construction & Water Engineer</h3>
+                <p class="role">Civil & Water Engineering Lead</p>
+                <span class="qualification-badge">BSc, HND</span>
+            </div>
+            <!-- Team Member 8 -->
+            <div class="team-card">
+                <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                <h3>Technical Support Team</h3>
+                <p class="role">Technical Personnel</p>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER SECTION -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="images/Rande_Resource_logo-removebg-preview.png" alt="Grande Resources Logo" class="footer-logo">
+                    <p class="footer-tagline">"Engineering Sustainable Prosperity"</p>
+                </div>
+                <a href="#top" class="back-to-top">↑ Back to top</a>
+            </div>
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>ABOUT</h4>
+                    <p>Grande Resources is an independent Mining Engineering, Technology and Environmental Service provider with presence in Ghana and Canada.</p>
+                    <div class="social-icons">
+                        <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                        <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>QUICK LINKS</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>SERVICES</h4>
+                    <ul>
+                        <li><a href="services.html">Blasting Solutions</a></li>
+                        <li><a href="services.html">Mine Planning</a></li>
+                        <li><a href="services.html">Environmental Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>CONTACT</h4>
+                    <ul class="contact-list">
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ghana & Canada</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> director@granderesource.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Grande Resources. All rights reserved.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        const hamburger = document.getElementById('hamburger-btn');
+        const navLinks = document.getElementById('nav-links');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+        document.querySelectorAll('#nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+    </script>   
+</body>
+</html>

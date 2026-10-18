@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Grande Resources</title>
+    <style>
+        /* =========================================
+           1. GLOBAL RESET & BASE STYLES
+           ========================================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #ffffff; color: #333; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* =========================================
+           2. HEADER & NAVIGATION
+           ========================================= */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background-color: #0a192f; position: sticky; top: 0; z-index: 1000; }
+        .logo img { height: 50px; }
+        nav ul { display: flex; gap: 25px; }
+        nav ul li a { color: white; font-weight: 500; font-size: 1rem; transition: color 0.3s; }
+        nav ul li a:hover, nav ul li a.active { color: #fbbf24; }
+        .header-btn { background-color: #fbbf24; color: #0a192f !important; padding: 10px 20px; border-radius: 5px; font-weight: bold; }
+        .header-btn:hover { background-color: #f59e0b; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
+        .hamburger span { width: 25px; height: 3px; background-color: white; border-radius: 2px; transition: all 0.3s ease; }
+
+        /* =========================================
+           3. HERO SECTION
+           ========================================= */
+        .projects-hero {
+            position: relative;
+            background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80'); /* Tech/Circuit background */
+            background-size: cover;
+            background-position: center;
+            padding: 60px 10% 80px 10%;
+            color: white;
+        }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 25, 47, 0.85); }
+        .hero-content { position: relative; z-index: 2; max-width: 800px; }
+        .hero-subtitle { color: #fbbf24 !important; font-weight: bold; letter-spacing: 1px; font-size: 0.9rem; margin-bottom: 15px; text-transform: uppercase; }
+        .projects-hero h1 { font-size: 3.5rem; margin-bottom: 20px; font-weight: 700; line-height: 1.2; }
+        .projects-hero p { font-size: 1.2rem; line-height: 1.6; color: #e2e8f0; }
+
+        /* =========================================
+           4. STATS SECTION
+           ========================================= */
+        .stats-section {
+            display: flex;
+            justify-content: space-around;
+            padding: 60px 10%;
+            background-color: white;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: center;
+        }
+        .stat-item h3 { font-size: 2.5rem; color: #fbbf24; margin-bottom: 5px; }
+        .stat-item p { color: #0a192f; font-weight: 600; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
+
+        /* =========================================
+           5. PROJECT TABLE SECTION
+           ========================================= */
+        .table-section { padding: 80px 10%; background-color: white; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2.5rem; color: #0a192f; margin-bottom: 15px; }
+        .section-header p { color: #475569; max-width: 700px; margin: 0 auto; font-size: 1.1rem; }
+        
+        .table-container { overflow-x: auto; border: 1px solid #e2e8f0; border-radius: 10px; }
+        table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        th { background-color: #f8fafc; color: #0a192f; font-weight: 700; text-align: left; padding: 20px; font-size: 0.9rem; letter-spacing: 0.5px; border-bottom: 2px solid #e2e8f0; }
+        td { padding: 20px; border-bottom: 1px solid #e2e8f0; color: #334155; font-size: 0.95rem; vertical-align: middle; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background-color: #f8fafc; }
+        
+        .cell-icon { display: inline-flex; align-items: center; gap: 8px; }
+        .cell-icon svg { width: 16px; height: 16px; stroke: #fbbf24; }
+
+        /* =========================================
+           6. CLIENTS & TEAM SECTION
+           ========================================= */
+        .info-section { padding: 80px 10%; background-color: #f4f6f9; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .info-col h2 { font-size: 2rem; color: #0a192f; margin-bottom: 15px; }
+        .info-col > p { color: #475569; margin-bottom: 30px; font-size: 1.05rem; }
+        
+        .list-card { background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); transition: transform 0.2s; }
+        .list-card:hover { transform: translateX(5px); }
+        .list-icon { color: #fbbf24; font-weight: bold; font-size: 1.2rem; }
+        .list-icon svg { width: 20px; height: 20px; stroke: #fbbf24; }
+        .list-card span { color: #0a192f; font-weight: 500; }
+
+        /* =========================================
+           7. FOOTER SECTION
+           ========================================= */
+        .site-footer { background-color: #050f1e; color: #94a3b8; padding: 60px 10% 20px 10%; border-top: 4px solid #fbbf24; font-size: 0.95rem; }
+        .footer-container { max-width: 1200px; margin: 0 auto; }
+        .footer-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; padding-bottom: 30px; border-bottom: 1px solid #1e293b; }
+        .footer-brand { display: flex; flex-direction: column; gap: 15px; }
+        .footer-logo { height: 35px; width: auto; object-fit: contain; filter: brightness(1.5); }
+        .footer-tagline { color: #fbbf24; font-style: italic; font-size: 1.1rem; margin: 0; }
+        .back-to-top { color: #94a3b8; text-decoration: none; transition: color 0.3s; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 50px; }
+        .footer-col h4 { color: #fbbf24; font-size: 1rem; letter-spacing: 1px; margin-bottom: 20px; font-weight: bold; }
+        .footer-col p { line-height: 1.6; margin-bottom: 20px; }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: #94a3b8; text-decoration: none; transition: color 0.3s; }
+        .footer-col ul li a:hover { color: white; }
+        .contact-list li { display: flex; align-items: center; gap: 10px; }
+        .contact-list svg { width: 18px; height: 18px; stroke: #fbbf24; }
+        .social-icons { display: flex; gap: 15px; }
+        .social-icons a { color: #94a3b8; transition: color 0.3s; }
+        .social-icons a:hover { color: white; }
+        .social-icons svg { width: 24px; height: 24px; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid #1e293b; font-size: 0.85rem; }
+        .legal-links { display: flex; gap: 20px; }
+        .legal-links a { color: #94a3b8; text-decoration: none; }
+
+        /* =========================================
+           8. MOBILE RESPONSIVE
+           ========================================= */
+        @media (max-width: 900px) {
+            .header-btn { display: none; }
+            .hamburger { display: flex; }
+            nav ul { position: fixed; top: 0; right: -100%; width: 70%; height: 100vh; background-color: #0a192f; flex-direction: column; justify-content: flex-start; align-items: center; transition: right 0.4s ease; z-index: 1000; padding-top: 100px; margin: 0; overflow-y: auto; }
+            nav ul.active { right: 0; }
+            nav ul li { margin: 20px 0; }
+            nav ul li a { font-size: 1.5rem; }
+            .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.active span:nth-child(2) { opacity: 0; }
+            .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+            
+            .projects-hero h1 { font-size: 2.5rem; }
+            .stats-section { flex-direction: column; gap: 30px; }
+            .info-section { grid-template-columns: 1fr; gap: 40px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 600px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            <img src="images/Rande_Resource_logo-removebg-preview.png" alt="Grande Resources Logo">
+        </div>
+        <nav>
+            <ul id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="industries.html">Industries</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="training.html">Training</a></li>
+                <li><a href="projects.html" class="active">Projects</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="hamburger" id="hamburger-btn">
+            <span></span><span></span><span></span>
+        </div>
+        <a href="contact.html" class="header-btn">Get In Touch</a>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="projects-hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-subtitle">OUR PORTFOLIO</p>
+            <h1>Our Projects</h1>
+            <p>A track record of delivering engineering, environmental, and infrastructure solutions for leading mining and industrial clients.</p>
+        </div>
+    </section>
+
+    <!-- STATS SECTION -->
+    <section class="stats-section">
+        <div class="stat-item">
+            <h3>12</h3>
+            <p>PROJECTS</p>
+        </div>
+        <div class="stat-item">
+            <h3>2010-2015</h3>
+            <p>YEARS SPAN</p>
+        </div>
+        <div class="stat-item">
+            <h3>6</h3>
+            <p>MAJOR CLIENTS</p>
+        </div>
+        <div class="stat-item">
+            <h3>2</h3>
+            <p>COUNTRIES</p>
+        </div>
+    </section>
+
+    <!-- PROJECT TABLE SECTION -->
+    <section class="table-section">
+        <div class="section-header">
+            <h2>Project Portfolio</h2>
+            <p>A comprehensive listing of our completed and ongoing projects, showcasing the breadth of our expertise.</p>
+        </div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>PROJECT NAME</th>
+                        <th>CLIENT</th>
+                        <th>BENEFICIARY</th>
+                        <th>DURATION</th>
+                        <th>YEAR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Environmental Impact Assessment (EIA)</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> Lone Island Investment Company</div></td>
+                        <td>—</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> On-going project</div></td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 2015</div></td>
+                    </tr>
+                    <tr>
+                        <td>Environmental Baseline Studies — Flora, Fauna, Water Quality & Socio-Economic</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> Lone Island Mine</div></td>
+                        <td>—</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Completed</div></td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 2015</div></td>
+                    </tr>
+                    <tr>
+                        <td>Strategic Mine Closure & Reclamation Plan, Yongwa</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> Ghacem Limited</div></td>
+                        <td>Yongwa Quarry, Otekpelu, Accra</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 6 Months</div></td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 2014</div></td>
+                    </tr>
+                    <tr>
+                        <td>Flood Impact Modeling at Yongwa Quarry</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> Ghacem Limited</div></td>
+                        <td>Yongwa Quarry, Otekpelu, Accra</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 4 Weeks</div></td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 2014</div></td>
+                    </tr>
+                    <tr>
+                        <td>Blast Impact Prediction Studies</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> Adamus Resources Ltd</div></td>
+                        <td>—</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 2 Months</div></td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 2014</div></td>
+                    </tr>
+                    <tr>
+                        <td>Atmospheric Impact Prediction Studies</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> Adamus Resources Ltd</div></td>
+                        <td>—</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 3 Months</div></td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 2014</div></td>
+                    </tr>
+                    <tr>
+                        <td>Installation of Weather Monitoring Stations</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> AngloGold Ashanti Iduapriem Mine</div></td>
+                        <td>—</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Completed</div></td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 2014</div></td>
+                    </tr>
+                    <tr>
+                        <td>Safe Operational Buffer Validation — Blast & Atmospheric Impact Modelling</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> Ghana Manganese Company</div></td>
+                        <td>—</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Completed</div></td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 2014</div></td>
+                    </tr>
+                    <tr>
+                        <td>Environmental Baseline Studies — Structural, Noise, Dust & Blast Monitoring</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> GHACEM / West Africa Quarries Ltd (WAQL)</div></td>
+                        <td>—</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Completed</div></td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 2014</div></td>
+                    </tr>
+                    <tr>
+                        <td>Environmental Baseline Study at Seldom Ghacem Quarry</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> Ghacem Limited</div></td>
+                        <td>Seldom Quarry, Akosombo</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 3 Months</div></td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 2013</div></td>
+                    </tr>
+                    <tr>
+                        <td>Design & Construction of Water Supply Tank and Network</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> Kofi Ababio and Sons Ltd</div></td>
+                        <td>KAS Valley Estates, Accra</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 5 Months</div></td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 2011</div></td>
+                    </tr>
+                    <tr>
+                        <td>Design & Construction of Water Supply Tank and Network</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> Oxfam GB, Ghana Office</div></td>
+                        <td>Ampain and Fatentaa Refugee Camps, Western & Brong Ahafo Regions</td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 4 Months</div></td>
+                        <td><div class="cell-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 2010</div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- CLIENTS & TEAM SECTION -->
+    <section class="info-section">
+        <!-- Left Column: Clients -->
+        <div class="info-col">
+            <h2>Notable Clients</h2>
+            <p>We have successfully delivered projects for some of the most respected names in the mining and industrial sectors.</p>
+            
+            <div class="list-card">
+                <div class="list-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+                <span>AngloGold Ashanti</span>
+            </div>
+            <div class="list-card">
+                <div class="list-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+                <span>Ghacem Limited</span>
+            </div>
+            <div class="list-card">
+                <div class="list-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+                <span>Ghana Manganese Company</span>
+            </div>
+            <div class="list-card">
+                <div class="list-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+                <span>Adamus Resources</span>
+            </div>
+        </div>
+
+        <!-- Right Column: Team -->
+        <div class="info-col">
+            <h2>Team Composition</h2>
+            <p>Our multidisciplinary team brings together diverse expertise to deliver integrated solutions for complex projects.</p>
+            
+            <div class="list-card">
+                <div class="list-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></div>
+                <span>Mining Engineer & Environmental Geochemist</span>
+            </div>
+            <div class="list-card">
+                <div class="list-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></div>
+                <span>Mineral Engineer & Industrial Process Analyst</span>
+            </div>
+            <div class="list-card">
+                <div class="list-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></div>
+                <span>Geomatic Engineer & Environmental Engineer</span>
+            </div>
+            <div class="list-card">
+                <div class="list-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></div>
+                <span>Community Based & Economical Professional</span>
+            </div>
+            <div class="list-card">
+                <div class="list-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></div>
+                <span>Environmental Scientist & Biodiversity Expert</span>
+            </div>
+            <div class="list-card">
+                <div class="list-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></div>
+                <span>Environmental Law & Regulatory Expert</span>
+            </div>
+            <div class="list-card">
+                <div class="list-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></div>
+                <span>Civil, Construction & Water Engineer</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER SECTION -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="images/Rande_Resource_logo-removebg-preview.png" alt="Grande Resources Logo" class="footer-logo">
+                    <p class="footer-tagline">"Engineering Sustainable Prosperity"</p>
+                </div>
+                <a href="#top" class="back-to-top">↑ Back to top</a>
+            </div>
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>ABOUT</h4>
+                    <p>Grande Resources is an independent Mining Engineering, Technology and Environmental Service provider with presence in Ghana and Canada.</p>
+                    <div class="social-icons">
+                        <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                        <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>QUICK LINKS</h4>
+                    <ul>
+                        <li><a href="index.html#who-we-are">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>SERVICES</h4>
+                    <ul>
+                        <li><a href="services.html">Blasting Solutions</a></li>
+                        <li><a href="services.html">Mine Planning</a></li>
+                        <li><a href="services.html">Environmental Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>CONTACT</h4>
+                    <ul class="contact-list">
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ghana & Canada</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> director@granderesource.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Grande Resources. All rights reserved.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        const hamburger = document.getElementById('hamburger-btn');
+        const navLinks = document.getElementById('nav-links');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+        document.querySelectorAll('#nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+    </script>   
+</body>
+</html>
