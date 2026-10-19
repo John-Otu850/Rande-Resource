@@ -134,113 +134,127 @@
             .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
         }
 
-        /* Search Icon */
-.search-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    margin-right: 15px;
-    transition: transform 0.3s;
-}
-.search-icon:hover {
-    transform: scale(1.1);
-}
-.search-icon svg {
-    width: 22px;
-    height: 22px;
-    stroke: white;
-}
-.search-icon:hover svg {
-    stroke: #fbbf24;
-}
+      /* ==========================================
+           EXPANDING SEARCH BAR STYLES
+           ========================================== */
+        .header-search-wrapper {
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin-right: 20px;
+        }
 
-/* Search Overlay */
-.search-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(10, 25, 47, 0.95);
-    z-index: 2000;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 150px;
-}
-.search-overlay.active {
-    display: flex;
-}
-.search-container {
-    background: white;
-    width: 90%;
-    max-width: 600px;
-    border-radius: 12px;
-    padding: 40px;
-    position: relative;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-}
-.search-container h2 {
-    color: #0a192f;
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-}
-.search-close {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    background: none;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    color: #64748b;
-    transition: color 0.3s;
-}
-.search-close:hover {
-    color: #0a192f;
-}
-#searchInput {
-    width: 100%;
-    padding: 15px 20px;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    outline: none;
-    transition: border-color 0.3s;
-}
-#searchInput:focus {
-    border-color: #fbbf24;
-}
-#searchResults {
-    margin-top: 20px;
-    max-height: 300px;
-    overflow-y: auto;
-}
-.search-result-item {
-    padding: 15px;
-    border-bottom: 1px solid #e2e8f0;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-.search-result-item:hover {
-    background: #f8fafc;
-}
-.search-result-item h4 {
-    color: #0a192f;
-    margin-bottom: 5px;
-}
-.search-result-item p {
-    color: #64748b;
-    font-size: 0.9rem;
-}
-.no-results {
-    color: #64748b;
-    text-align: center;
-    padding: 20px;
-}
+
+        .search-icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+
+        .search-icon-btn svg {
+            width: 22px;
+            height: 22px;
+            stroke: white;
+            transition: stroke 0.3s;
+        }
+
+
+        .search-icon-btn:hover svg {
+            stroke: #fbbf24; /* Yellow on hover */
+        }
+
+
+        .search-expand-box {
+            position: absolute;
+            right: 30px; /* Positions it to the left of the icon */
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: white;
+            border-radius: 20px;
+            width: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+        }
+
+
+        .search-expand-box.active {
+            width: 200px; /* Expands to this width */
+            opacity: 1;
+            padding: 5px 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+
+        .search-expand-box input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 0.9rem;
+            color: #0a192f;
+            background: transparent;
+        }
+
+
+            #searchDropdownResults {
+            position: absolute;
+            top: 100%;
+            right: 0; /* Aligns it to the right, under the search icon */
+            width: 300px; /* Wider than the 200px input box so text fits nicely */
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            margin-top: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            z-index: 100;
+        }
+
+
+        .search-result-link {
+            display: block;
+            padding: 12px 15px;
+            color: #0a192f;
+            text-decoration: none;
+            border-bottom: 1px solid #f1f5f9;
+            transition: background 0.2s;
+        }
+
+
+        .search-result-link:hover {
+            background-color: #f8fafc;
+        }
+
+
+        .search-result-link strong {
+            display: block;
+            color: #0a192f;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+
+
+        .search-result-link span {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+       
+        .no-results-msg {
+            padding: 15px;
+            color: #64748b;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
     </style>
 </head>
 <body>
@@ -265,13 +279,23 @@
             </ul>
         </nav>
 
-          <!-- Search Icon -->
-        <div class="search-icon" id="searchBtn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-        </div>
+         <!-- NEW Expanding Search Bar -->
+            <div class="header-search-wrapper">
+                <div class="search-expand-box" id="searchExpandBox">
+                    <input type="text" id="headerSearchInput" placeholder="Search site..." autocomplete="off">
+                </div>
+               
+                <!-- MOVED OUTSIDE THE BOX ABOVE -->
+                <div id="searchDropdownResults"></div>
+               
+                <button class="search-icon-btn" id="searchIconBtn" aria-label="Search">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+            </div>
+
 
         <!-- Hamburger Menu Button -->
         <div class="hamburger" id="hamburger-btn">
@@ -455,103 +479,101 @@
         });
     </script> 
     
-    <!-- Search Overlay -->
-<div class="search-overlay" id="searchOverlay">
-    <div class="search-container">
-        <button class="search-close" id="searchClose">&times;</button>
-        <h2>Search</h2>
-        <input type="text" id="searchInput" placeholder="Type to search...">
-        <div id="searchResults"></div>
-    </div>
-</div>
+    <script>
+    // ==========================================
+    // GLOBAL SEARCH DATABASE & LOGIC
+    // ==========================================
+    const siteDatabase = [
+        { title: "Home", link: "index.html", desc: "Main landing page" },
+        { title: "About Us", link: "about.html", desc: "Who we are, our history, and mission" },
+        { title: "Health for Wealth", link: "about.html", desc: "Our commitment to community health" },
+        { title: "Our Team", link: "about.html", desc: "Meet our professional staff" },
+        { title: "Blasting Solutions", link: "services.html", desc: "Precision blast design and optimization" },
+        { title: "Mine Planning", link: "services.html", desc: "Strategic short-term and long-term planning" },
+        { title: "Environmental Services", link: "services.html", desc: "Impact assessments and rehabilitation" },
+        { title: "Equipment Maintenance", link: "services.html", desc: "Preventative maintenance for heavy machinery" },
+        { title: "Specialized Services", link: "services.html", desc: "Borehole construction and water management" },
+        { title: "Mining Industry", link: "industries.html", desc: "Services for surface and underground mining" },
+        { title: "Construction Industry", link: "industries.html", desc: "Borehole construction and civil engineering" },
+        { title: "Energy Sector", link: "industries.html", desc: "Environmental assessments for power generation" },
+        { title: "Project Portfolio", link: "projects.html", desc: "List of our completed and ongoing projects" },
+        { title: "Notable Clients", link: "projects.html", desc: "AngloGold Ashanti, Ghacem, and more" },
+        { title: "Research Areas", link: "research.html", desc: "Resource estimation and geotechnical studies" },
+        { title: "Blast Optimisation Research", link: "research.html", desc: "Studies to reduce vibration and flyrock" },
+        { title: "Training Programs", link: "training.html", desc: "Explosives, Ventilation, and Dewatering courses" },
+        { title: "Mine Regulatory Training", link: "training.html", desc: "JMO and SMO certification requirements" },
+        { title: "Careers", link: "careers.html", desc: "Join our team, open positions, and culture" },
+        { title: "Send Us Your CV", link: "careers.html", desc: "Apply for future opportunities" },
+        { title: "Contact Us", link: "contact.html", desc: "Get in touch, our offices in Ghana and Canada" },
+        { title: "Send a Message", link: "contact.html", desc: "Fill out the contact form" }
+    ];
 
-<script>
-    // Search Functionality
-    const searchBtn = document.getElementById('searchBtn');
-    const searchOverlay = document.getElementById('searchOverlay');
-    const searchClose = document.getElementById('searchClose');
-    const searchInput = document.getElementById('searchInput');
-    const searchResults = document.getElementById('searchResults');
 
-    // Open search
-    if (searchBtn) {
-        searchBtn.addEventListener('click', () => {
-            searchOverlay.classList.add('active');
-            setTimeout(() => searchInput.focus(), 100);
-        });
-    }
+    const searchInput = document.getElementById('headerSearchInput');
+    const resultsBox = document.getElementById('searchDropdownResults');
+    const searchBoxContainer = document.getElementById('searchExpandBox');
+    const searchIconBtn = document.getElementById('searchIconBtn');
 
-    // Close search
-    if (searchClose) {
-        searchClose.addEventListener('click', () => {
-            searchOverlay.classList.remove('active');
-            searchInput.value = '';
-            searchResults.innerHTML = '';
-        });
-    }
 
-    // Close when clicking outside
-    if (searchOverlay) {
-        searchOverlay.addEventListener('click', (e) => {
-            if (e.target === searchOverlay) {
-                searchOverlay.classList.remove('active');
+    // Toggle search box open/close
+    if (searchIconBtn) {
+        searchIconBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            searchBoxContainer.classList.toggle('active');
+            if (searchBoxContainer.classList.contains('active')) {
+                setTimeout(() => searchInput.focus(), 100);
+            } else {
+                resultsBox.style.display = 'none';
                 searchInput.value = '';
-                searchResults.innerHTML = '';
             }
         });
     }
 
-    // Search functionality
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            searchResults.innerHTML = '';
-            
-            if (query.length < 2) return;
 
-            // Search through all headings and paragraphs on the page
-            const searchableElements = document.querySelectorAll('h1, h2, h3, h4, p, li, .service-card h3, .program-card h3, .news-card h3, .why-card h3, .offer-card h3');
-            const results = [];
-            const seen = new Set();
+            // Search functionality
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase().trim();
+                resultsBox.innerHTML = '';
 
-            searchableElements.forEach(el => {
-                const text = el.textContent.toLowerCase();
-                if (text.includes(query) && !seen.has(el.textContent.trim())) {
-                    seen.add(el.textContent.trim());
-                    results.push({
-                        text: el.textContent.trim(),
-                        element: el
+
+                if (query.length < 2) {
+                    resultsBox.style.display = 'none';
+                    return;
+                }
+
+
+                // Filter the database
+                const matches = siteDatabase.filter(item =>
+                    item.title.toLowerCase().includes(query) ||
+                    item.desc.toLowerCase().includes(query)
+                );
+
+
+                if (matches.length > 0) {
+                    resultsBox.style.display = 'block';
+                    matches.forEach(item => {
+                        const link = document.createElement('a');
+                        link.href = item.link;
+                        link.className = 'search-result-link';
+                        link.innerHTML = `<strong>${item.title}</strong><span>${item.desc}</span>`;
+                        resultsBox.appendChild(link);
                     });
+                } else {
+                    resultsBox.style.display = 'block';
+                    resultsBox.innerHTML = '<div class="no-results-msg">No results found</div>';
                 }
             });
 
-            if (results.length === 0) {
-                searchResults.innerHTML = '<div class="no-results">No results found</div>';
-            } else {
-                results.slice(0, 10).forEach(result => {
-                    const div = document.createElement('div');
-                    div.className = 'search-result-item';
-                    div.innerHTML = `<h4>${result.text.substring(0, 80)}${result.text.length > 80 ? '...' : ''}</h4>`;
-                    div.addEventListener('click', () => {
-                        result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        searchOverlay.classList.remove('active');
-                        searchInput.value = '';
-                        searchResults.innerHTML = '';
-                    });
-                    searchResults.appendChild(div);
-                });
-            }
-        });
-    }
 
-    // Close search with Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && searchOverlay) {
-            searchOverlay.classList.remove('active');
-            searchInput.value = '';
-            searchResults.innerHTML = '';
+            // Close results ONLY if clicking outside BOTH the search box AND the results box
+            document.addEventListener('click', function(e) {
+                if (!searchBoxContainer.contains(e.target) && !resultsBox.contains(e.target)) {
+                    resultsBox.style.display = 'none';
+                }
+            });
         }
-    });
 </script>
+
 </body>
 </html>
