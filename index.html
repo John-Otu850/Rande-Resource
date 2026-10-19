@@ -1492,6 +1492,28 @@
             text-align: center;
             font-size: 0.9rem;
         }
+
+            /* Mobile Search Dropdown Fix - Forces it to float over the screen */
+        @media (max-width: 768px) {
+            #searchDropdownResults {
+                position: fixed; /* Breaks it out of the small header box */
+                top: 80px;       /* Pushes it down below the header (adjust if needed) */
+                left: 5%;        /* Centers it nicely */
+                width: 90%;      /* Makes it wide and easy to read */
+                right: auto;     /* Resets the desktop alignment */
+                background-color: white;
+                border-radius: 8px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+                z-index: 10000;  /* Ensures it sits on top of the video/images */
+                max-height: 60vh; /* Prevents it from being too tall */
+                overflow-y: auto;
+            }
+
+            .search-result-link {
+                padding: 15px;
+                border-bottom: 1px solid #f1f5f9;
+            }
+        }
     </style>
 </head>
 <body>
